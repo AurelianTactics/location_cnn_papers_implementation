@@ -13,13 +13,11 @@ class VisionNetwork(Model):
     """Generic vision network."""
 
     def _build_layers(self, inputs, num_outputs, options):
-        #print("visionnet: testing inputs size {}".format(np.shape(inputs)))
+        
         if options.get('custom_options', {}).get('add_coordinates'):
             with_r = False
             if options.get('custom_options', {}).get('add_coords_with_r'):
                 with_r = True
-            #addcoords = AddCoords(x_dim=x_dim, y_dim=y_dim, with_r=with_r)
-            #addcoords = AddCoords(x_dim=tf.shape(inputs)[0],y_dim=tf.shape(inputs)[1],with_r=with_r)
             addcoords = AddCoords(x_dim=int(np.shape(inputs)[1]), y_dim=int(np.shape(inputs)[1]),with_r=with_r)
             inputs = addcoords(inputs)
             print("visionnet: Added coordinate filters tensor size is now {}".format(np.shape(inputs)))
